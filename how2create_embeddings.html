@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Embedding Matters in RAG</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <h1>Mastering Embedding for RAG</h1>
+            <button class="menu-btn" aria-label="Toggle Menu">☰</button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <div class="menu-item">
+                    <a href="what_is_embedding.html" class="submenu-trigger">What is Embedding</a>
+                    <div class="submenu">
+                        <a href="vector_types.html">Types of Vectors</a>
+                        <a href="embeddable_objects.html">Embeddable Objects</a>
+                    </div>
+                </div>
+                <a href="whyembedding.html">Why Embedding</a>
+                <div class="menu-item">
+                    <a href="how2work_with_embeddings.html" class="submenu-trigger">How to Work with Embeddings</a>
+                    <div class="submenu">
+                        <a href="how2create_embeddings.html">How to Create Vector Embeddings</a>
+                        <a href="how_embedding_works.html">How Embeddings Works in RAG</a>
+                        <a href="how2choose_embeddingModel.html">How to Choose Embedding Models</a>
+                    </div>
+                </div>
+                <a href="https://www.linkedin.com/in/kumar-np" target="_blank">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container main-content">
+        <h1>How to Create Vector Embeddings </h1>
+        <p>Vector embeddings are generated through a machine learning process where a model is trained to transform various types of data into numerical vectors.</p>
+		<p>Below are the high-level steps involved: </p>
+
+        <div class="content-wrapper">
+            <div class="step">
+                <h2>Data Collection</h2>
+                <p>Start by gathering a large dataset that accurately represents the type of data you want to embed, whether it’s text, images, audio, or other forms of structured or unstructured data. This foundational step is crucial for ensuring your model learns from relevant examples.</p>
+            </div>
+            <div class="step">
+                <h2>Data Preprocessing</h2>
+                <p>Clean and prepare your dataset to make it suitable for analysis. This might involve removing noise, normalizing text, resizing images, or applying other specific techniques based on the data type. For instance, if you're working with text, you may need to tokenize it; for images, resizing or augmenting may be necessary.</p>
+            </div>
+            <div class="step">
+                <h2>Data Chunking</h2>
+                <p>Divide the data into manageable pieces. For text data, this could mean splitting it into sentences or words. For images, you might segment them into patches, while time series data could be divided into intervals. This step helps the model focus on smaller, more meaningful units of data.</p>
+            </div>
+            <div class="step">
+                <h2>Model Selection and Training</h2>
+                <p>Choose a neural network model that aligns with your goals. Feed the pre-processed and chunked data into the model, which will learn to identify patterns and relationships by adjusting its internal parameters during training. For example, it may learn to associate words that frequently appear together or to recognize key features in images.</p>
+            </div>
+            <div class="step">
+                <h2>Vector Generation</h2>
+                <p>As the model trains, it produces numerical vectors (or embeddings) that encapsulate the meaning or characteristics of the data. Each piece of data, such as a word or an image, is represented by a unique vector.</p>
+            </div>
+            <div class="step">
+                <h2>Evaluation of Embeddings</h2>
+                <p>Assess the quality and effectiveness of the generated embeddings. This can be done by measuring their performance on specific tasks or through human evaluation of their similarity and relevance</p>
+            </div>
+            <div class="step">
+                <h2>Application</h2>
+                <p>Once the embeddings have been validated as effective, you can utilize them for various data analysis and processing tasks, enhancing your ability to extract insights from your datasets.</p>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="how2work_with_embeddings.html"><span>◁</span> Previous</a>
+            <a href="how_embedding_works.html">Next <span>▷</span></a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Linkedin: <a href="https://www.linkedin.com/in/kumar-np" target="_blank" class="footer-link">Kumar N.P <img src="images/npk-2.PNG" alt="gaja" title="gaja" height="22" width="22"></a></p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top">↑</button>
+
+    <!-- Single JavaScript reference -->
+    <script src="scripts/script_embedding.js"></script>
+</body>
+</html>

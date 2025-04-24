@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Choose Right Embedding Models</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <h1>Mastering Embedding for RAG</h1>
+            <button class="menu-btn" aria-label="Toggle Menu">☰</button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <div class="menu-item">
+                    <a href="what_is_embedding.html" class="submenu-trigger">What is Embedding</a>
+                    <div class="submenu">
+                        <a href="vector_types.html">Types of Vectors</a>
+                        <a href="embeddable_objects.html">Embeddable Objects</a>
+                    </div>
+                </div>
+                <a href="whyembedding.html">Why Embedding</a>
+                <div class="menu-item">
+                    <a href="how2work_with_embeddings.html" class="submenu-trigger">How to Work with Embeddings</a>
+                    <div class="submenu">
+                        <a href="how2create_embeddings.html">How to Create Vector Embeddings</a>
+                        <a href="how_embedding_works.html">How Embeddings Work in RAG</a>
+                        <a href="how2choose_embeddingModel.html">How to Choose Embedding Models</a>
+                    </div>
+                </div>
+                <a href="https://www.linkedin.com/in/kumar-np" target="_blank">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container main-content">
+        <h1>How to Choose Right Embedding Models</h1>
+        <p>Embeddings are critical for Retrieval-Augmented Generation (RAG) systems, they are often created using large language models (LLMs) that have been trained on extensive datasets.  Selecting the right embedding model involves evaluating your use case, data requirements, and performance needs.</p>
+		<p>&nbsp</p>
+		<p>Below are few key considerations: </p>
+        <!-- Horizontal Slim Menu -->
+        <div class="horizontal-menu">
+            <ul>
+                <li><a href="#static-contextual">Static OR Contextual Embeddings</a></li>
+                <li><a href="#general-domain">General OR Domain-Specific Models</a></li>
+                <li><a href="#open-closed">Open-Source OR Closed-Source Models</a></li>
+                <li><a href="#additional-key">Additional Key Considerations</a></li>
+            </ul>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="text-content">
+                <div class="section" id="static-contextual">
+                    <h2>Static or Contextual Embeddings</h2>
+                    <p>Determine whether your use case requires static embeddings (which remain the same regardless of context) or contextual embeddings (which vary based on surrounding content and produces different vectors for same work based on its context within a sentence.</p>
+
+                    <p>&nbsp</p>
+					<h3>Static Embedding</h3>
+                    <p>Static embeddings assign a fixed vector to each word, independent of its context or sequence in which the word appears.</p>
+					<p>&nbsp</p>
+                    <p><b>Embedding Models:</b> Word2Vec, GloVe, Doc2Vec, TF-IDF, etc.</p>
+                    <p>&nbsp</p>
+					<p><b>Example:</b></p>
+                    <table class="pros-cons">
+                        <thead>
+                            <tr>
+                                <th>User Query</th>
+                                <th>Knowledge Base</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>“I need help with my account settings.”</td>
+                                <td>Knowledge Base 1: “Settings for your account are currently unavailable.”</td>
+                            </tr>
+                        </tbody>
+                    </table>
+					<p>&nbsp</p>
+                    <p>In this example, the words "account" and "settings" would have same vector representations in both the user query and knowledge base1, regardless of its specific context.</p>
+					<p>Techniques like Word2Vec, GloVe, Doc2Vec (dense vector-based), and TF-IDF (keyword/sparse vector-based) enable the system to find relevant results based on the cosine similarity of these vectors.</p>
+					 <p>&nbsp</p>
+                    <p><b>Limitations:</b></p>
+                    <ul class="indented-list">
+                        <li><b>Polysemy Issue:</b> The word “account” may have multiple meanings (e.g., a social media account or financial loan account), leading to confusion since it shares the same vector.</li>
+                        <li><b>Context Insensitivity:</b> The static embeddings cannot differentiate between various issues related to account settings. For instance, they cannot specify whether the settings are unavailable due to technical problems, user permissions, or other reasons.</li>
+                    </ul>
+					
+					<p>&nbsp</p>
+                    <h3>Contextual Embedding</h3>
+                    <p>Contextual embeddings generate vectors that vary based on the surrounding text, capturing bidirectional or focused context.</p>
+					<p>&nbsp</p>
+                    <ul class="indented-list">
+                        <li><b>Bidirectional:</b>This approach captures context from both the left and right sides of a word within a sentence, resulting in a comprehensive understanding of the entire sentence.</li>
+                        <li><b>Focused Context:</b> This method is specifically tailored for grasping context in shorter text segments, such as sentences or paragraphs.</li>
+                    </ul>
+					 <p>&nbsp</p>
+                    <p><b>Embedding Models:</b> BERT, RoBERTa, all-MiniLM-L6-v2, SBERT, ColBERT, etc.</p>
+                     <p>&nbsp</p>
+					<p><b>Example:</b></p>
+                    <table class="pros-cons">
+                        <thead>
+                            <tr>
+                                <th>User Query</th>
+                                <th>Knowledge Base</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>“I need help with my account settings.”</td>
+                                <td>
+                                    Knowledge Base 1: “Settings for your account are currently unavailable.”<br>
+                                    Knowledge Base 2: “Unable to update settings due to insufficient permissions.”<br>
+                                    Knowledge Base 3: “Settings change failed due to system error.”<br>
+                                    Knowledge Base 4: “User cannot access account settings page.”
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+					<p>&nbsp</p>
+                    <p>Models like BERT, RoBERTa, all-MiniLM-L6-v2, and SBERT (a masked language model), as well as Paraphrase-MPNet-Base-v2 (a permutated language model), effectively understand context, linking phrases like “help with my account settings” to related issues such as “unable to update settings” and “cannot access settings page.” This makes them excellent choices for the retrieval process.</p>
+					<p>&nbsp</p>
+                    <p>ColBERT (Contextualized Late Interaction over BERT) utilizes BM25 for initial document retrieval and then employs BERT-based contextual embeddings for detailed re-ranking, optimizing both efficiency and contextual accuracy in information retrieval tasks.</p>
+                        <li>Process Step 1:  ColBERT first retrieves relevant document using BM25.</li>
+                        <li>Process Step 2: It identifies key information like ‘Settings for your account are currently unavailable’, ‘Unable to update settings due to insufficient permissions.’ , ‘User cannot access account settings page’ and ‘Settings change failed due to system error.’</li>
+                        <li>Process Step 3: Then, ColBERT applies BERT-based contextual embeddings to re-rank the results, ensuring the most relevant and accurate responses are prioritized.</li>                    
+                    <p>&nbsp</p>
+					<p><b>Limitations:</b></p>
+                    <ul class="indented-list">
+                        <li><b>Context Limitation:</b> The Masked and Permuted Language Model excels at understanding context within a specific text span, such as a sentence or paragraph. However, it cannot generate text or perform tasks beyond simply understanding and retrieving relevant documents.</li>
+                   
+                    <li><b>GPT (Generative Pre-trained Transformer) Embedding: </b>GPT embedding models utilize a method called "transformer embeddings," which captures not only the individual meanings of words but also the context in which they occur. The GPT architecture processes a sequence of words (or tokens) through several layers of transformer blocks. Each block transforms the input into a new sequence of vectors that reflect both the meanings of the words and their relationships with one another. This makes GPT embeddings much more dynamic and context-aware compared to traditional word embeddings.</li>
+					 </ul>
+                    <p>&nbsp</p>
+					<p><b>Unidirectional:</b> GPT embeddings only consider the context from the left side, they build the understanding sequentially as they generate text.</p>
+					<p>&nbsp</p>
+                    <p><b>Broad Context:</b> They can maintain coherence over longer text sequences, which makes them particularly effective for producing extended passages of text.</p>
+					
+                    <p>&nbsp</p>
+                    <p><b>Embedding Models:</b> GTR-T5, text-embedding-3-large, google-gecko-text-embedding, amazon-titan, etc.</p>
+                    <p><b>Example:</b></p>
+                    <table class="pros-cons">
+                        <thead>
+                            <tr>
+                                <th>User Query</th>
+                                <th>Knowledge Base</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>“I need help with my account settings.”</td>
+                                <td>
+                                    Knowledge Base 1: “Settings for your account are currently unavailable.”<br>
+                                    Knowledge Base 2: “Unable to update settings due to insufficient permissions.”<br>
+                                    Knowledge Base 3: “Settings change failed due to system error.”<br>
+                                    Knowledge Base 4: “User cannot access account settings page.”<br>
+                                    Knowledge Base 5: “Please ensure your account is verified to access settings options.”
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><b>Generative-based embeddings:</b> Good for the generation step of RAG. They understand that phrases like “Settings for your account are currently unavailable.” and “User cannot access account settings page.” They facilitate generating responses that are contextually relevant and broader context for example “Please ensure your account is verified to access settings options.”</p>
+					<p>&nbsp</p>
+                    <p><b>Limitations:</b></p>
+                    <ul class="indented-list">
+                        <li>GPT embeddings may struggle with generating accurate responses for highly specialized or niche topics due to limited exposure during training.</li>
+                        <li>GPT tend to require more computational resources compared to purely contextual models like BERT.</li>
+                    </ul>
+                </div>
+
+                <div class="section" id="general-domain">
+                    <h2>General vs. Domain-Specific Models</h2>
+                    <p>For your use case choose if you need a general-purpose model that can handle a wide range of topics or a domain-specific model that is tailored for a particular field or industry.</p>
+
+                    <h3>2.1 General vs. Domain-Specific Embedding Models</h3>
+                    <table class="pros-cons">
+                        <thead>
+                            <tr>
+                                <th>When to Use Generic Embedding Models</th>
+                                <th>When to Use Domain-Specific Embedding Models</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <ul class="indented-list">
+                                        <li><b>General Knowledge Tasks:</b> Suitable for broad applications that don’t require deep domain-specific knowledge, like general question-answering or summarization.</li>
+                                        <li><b>Rapid Development:</b> Ideal for quickly building RAG systems when specific domain data is unavailable or when testing concepts.</li>
+                                        <li><b>Diverse Query Handling:</b> Effective for handling a wide range of user queries that span multiple topics or domains.</li>
+                                        <li><b>Scalability:</b> Works well when large, diverse datasets are available, allowing for better coverage of common knowledge.</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="indented-list">
+                                        <li><b>Specialized Knowledge Retrieval:</b> Essential for retrieving and generating content in niche areas like healthcare, law, or scientific research, where accuracy is critical.</li>
+                                        <li><b>Contextual Understanding:</b> Important when user queries require a nuanced understanding of specific terminology and concepts.</li>
+                                        <li><b>High Precision Requirements:</b> Necessary when the quality and precision of responses are paramount, such as in medical diagnoses or legal interpretations.</li>
+                                        <li><b>Fine-Tuned Response Generation:</b> Useful when responses need to be tailored to specific contexts or standards relevant to a particular domain.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Exploring Generic and Domain-Specific Embedding Models</h3>
+                    <table class="pros-cons">
+                        <thead>
+                            <tr>
+                                <th>Generic Embedding Models</th>
+                                <th>Domain-Specific Embedding Models</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <ul class="indented-list">
+                                        <li><b>Word2Vec:</b>A classic model for generating vector representations of words based on their contexts.</li>
+                                        <li><b>Global Vectors for Word Representation(GloVe):</b> An unsupervised model that creates word embeddings from word co-occurrence statistics.</li>
+                                        <li><b>FastText:</b> An extension of Word2Vec that accounts for sub-word information to improve understanding of rare words.</li>
+                                        <li><b>Bidirectional Encoder Representations from Transformers (BERT):</b> A transformer-based model suitable for various NLP tasks, including those requiring contextual understanding.</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="indented-list">
+                                        <li><b>BioBERT:</b> Fine-tuned for biomedical text retrieval and generation.</li>
+                                        <li><b>ClinicalBERT:</b> Trained on clinical narratives for healthcare tasks.</li>
+                                        <li><b>LegalBERT:</b> Tailored for legal documents and queries.</li>
+                                        <li><b>FinancialBERT:</b> Fine-tuned for financial texts like news and reports.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Evaluating Accuracy of Domain-Specific Models</h3>
+                    <p>Compare BERT and BioBERT by creating embeddings for two sentences and measuring cosine similarity.</p>
+                    <h4>Example of Evaluating Accuracy of BERT and BioBERT embedding</h4>
+                    <div class="section">
+                        <div style="width: 100%; max-width: 950px; height: 300px; overflow: hidden; border: 1px solid #ccc; border-radius: 8px;">
+                            <iframe src="implementation_code/Domain-Specific LLM Embedding Accuracy Evaluation.html" width="100%" height="100%" style="border: none;"></iframe>
+                        </div>
+                    </div>
+                    <h4> Example Result of  Evaluating Accuracy of BERT and BioBERT</h4>
+                    <div class="image-container">
+                        <img src="images/bert_biobert_evaluation_result.png" alt="BERT and BioBERT Evaluation Result" class="content-image center" width="45%">
+                        <div class="zoom-controls">
+                            <span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+                            <span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section" id="open-closed">
+                    <h2>Choosing Between Open-Source and Closed-Source Embedding Models: A Practical Guide</h2>
+                    <p>Select between open-source models (e.g., evaluated in the Massive Text Embedding Benchmark) or closed-source models with proprietary benefits.</p>
+					<p>&nbsp</p>
+                    <h3>Open-Source Embedding Models</h3>
+                    <ul class="indented-list">
+                        <li><b>Local Accessibility:</b> These models are easier to implement and run on your cloud or local storage.</li>
+                        <li><b>Cost-Effective:</b> Utilizing them locally is free, and they can be more affordable than commercial options for paid inference.</li>
+                        <li><b>Data Privacy:</b> Ideal for scenarios where you want to keep your data private and avoid sharing it with external APIs.</li>
+                        <li><b>Control Over Processing:</b> They provide greater flexibility and control over your search pipeline and data handling.</li>
+                        <li><b>Local Data Utilization:</b> Particularly beneficial when you have substantial local datasets that you wish to analyse.</li>
+                    </ul>
+                    <table class="pros-cons">
+                        <thead>
+                            <tr>
+                                <th>When to Use</th>
+                                <th>When Not to Use</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <ul class="indented-list">
+                                        <li>If you prioritize data privacy and do not want to share sensitive information.</li>
+                                        <li>When you have large volumes of data that need processing closer to your storage account.</li>
+                                        <li>When you require customization and control over your embedding and search processes.</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="indented-list">
+                                        <li>If you lack the technical expertise to implement and maintain the model.</li>
+                                        <li>When you need guaranteed support and reliability, which may not be available for open-source solutions.</li>
+                                        <li>When you need access to the latest features and optimizations that may be offered by commercial embedding services.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Comparison of Open-Source Embedding Models Using Mean Reciprocal Rank (MRR)</h4>
+                    <div class="section">
+                        <div style="width: 100%; max-width: 950px; height: 300px; overflow: hidden; border: 1px solid #ccc; border-radius: 8px;">
+                            <iframe src="implementation_code/Comparison of Open-Source Embedding Models.html" width="100%" height="100%" style="border: none;"></iframe>
+                        </div>
+                    </div>
+                    <h4>3.1.2 Analysis Result</h4>
+                    <div class="image-container">
+                        <img src="images/comparsion_of_open-source-LLM-MRR.png" alt="Open-Source MRR Analysis Result" class="content-image center" width="45%">
+                        <div class="zoom-controls">
+                            <span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+                            <span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+                        </div>
+                    </div>
+
+                    <h3>Closed-Source Embedding Models</h3>
+                    <ul class="indented-list">
+                        <li><b>High Inference Speed :</b> These models typically offer very fast inference times, although costs can accumulate with each token processed.</li>
+                        <li><b>Optimized Performance :</b> They often excel in specific applications, such as multilingual tasks or generating instruction-based embeddings.</li>
+                    </ul>
+                    <table class="pros-cons">
+                        <thead>
+                            <tr>
+                                <th>When to Use</th>
+                                <th>When Not to Use</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <ul class="indented-list">
+                                        <li>If your project involves complex tasks like multilingual processing or specific embedding requirements that benefit from specialized optimization.</li>
+                                        <li>When you require rapid inference speeds for high-volume applications.</li>
+                                        <li>When you want to evaluate the model's performance using a free trial before making a financial commitment.</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="indented-list">
+                                        <li>When you need full control over your model and data, as closed source options may limit customization.</li>
+                                        <li>If you have budget constraints, as costs can quickly add up with token-based pricing.</li>
+                                        <li>If you prefer an open-source solution that allows for greater transparency and community support.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section" id="additional-key">
+                    <h2>Additional Key Considerations</h2>
+                    <p>The <a href="https://huggingface.co/spaces/mteb/leaderboard" target="_blank">MTEB (Model and Text Embedding Benchmark) Leaderboard</a> is an excellent resource for exploring the current landscape of both proprietary and open-source text embedding models, particularly for Retrieval-Augmented Generation (RAG) applications. It provides a comprehensive overview of each model, detailing important metrics such as model size, memory requirements, embedding dimensions, maximum token capacity, and performance scores across various tasks, including retrieval, summarization, clustering, reranking, and classification.</p>
+                    <ul class="indented-list">
+                        <li><b>Max Tokens:</b> Consider the maximum number of tokens the model can process, which can affect performance and relevance.
+						<p>Maximum token  indicates the upper limit of tokens that can be processed into a single embedding. In the context of Retrieval-Augmented Generation (RAG), an ideal chunk size is usually around a single paragraph or less, typically consisting of about 100 tokens. For most applications, models with a maximum token capacity of 512 are more than sufficient. However, there are certain situations where embedding longer texts may be necessary, which would require models with a larger context window to effectively handle the additional tokens. This consideration is crucial for optimizing the performance of RAG systems.</p></li>
+                        <li><b>Retrieval Average:</b> Look at how effectively the model retrieves relevant information, as this impacts overall quality.
+						<p>Retrieval Average metric reflects the average Normalized Discounted Cumulative Gain (NDCG) at rank 10 across multiple datasets. NDCG is widely used to evaluate the effectiveness of retrieval systems. A higher NDCG score indicates that the embedding model excels at prioritizing relevant items at the top of the retrieved results. This is particularly important in Retrieval-Augmented Generation (RAG) applications, where the quality of the retrieved information significantly impacts the overall performance and relevance of the generated responses.</p></li>
+                        <li><b>Embedding Dimensionality:</b> Assess the dimensionality of the embeddings, as higher dimensions can capture more detail but may also increase complexity.
+						<p>Embedding Dimensions refers to the length of the embedding vector generated by the model. Smaller embedding dimensions can lead to faster inference and are more efficient in terms of storage, making them ideal for quick retrieval in RAG applications. However, they may sacrifice some accuracy in semantic representation. In contrast, larger embedding dimensions allow for greater expressiveness, enabling the model to better capture intricate relationships and patterns within the data. This, however, comes at the cost of slower search times and increased memory requirements. The goal is to find an optimal balance between capturing the complexity of the data and maintaining operational efficiency, especially when determining chunk sizes for effective embedding in RAG tasks.</p></li>
+                        <li><b>Model Size:</b> Take into account the size of the model, which influences both computational resources and deployment capabilities.
+						<p>This refers to the size of the embedding model measured in gigabytes (GB), which provides insight into the computational resources needed to operate the model. While larger models typically offer improved retrieval performance, it's crucial to recognize that increased model size can also lead to higher latency. This latency-performance trade-off is particularly significant in production environments, where response time is critical for effective Retrieval-Augmented Generation (RAG) applications. Balancing model size and latency is essential for optimizing both performance and user experience.</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="how_embedding_works.html"><span>◁</span> Previous</a>
+            <a href="index.html">Next <span>▷</span></a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Linkedin: <a href="https://www.linkedin.com/in/kumar-np" target="_blank" class="footer-link">Kumar N.P <img src="images/npk-2.PNG" alt="gaja" title="gaja" height="22" width="22"></a></p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top">↑</button>
+
+    <!-- Single JavaScript reference -->
+    <script src="scripts/script_embedding.js"></script>
+</body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embeddable Objects and Techniques</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <h1>Mastering Embedding for RAG</h1>
+            <button class="menu-btn" aria-label="Toggle Menu">☰</button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <div class="menu-item">
+                    <a href="what_is_embedding.html" class="submenu-trigger">What is Embedding</a>
+                    <div class="submenu">
+                        <a href="vector_types.html">Types of Vectors</a>
+                        <a href="embeddable_objects.html">Embeddable Objects</a>
+                    </div>
+                </div>
+                <a href="whyembedding.html">Why Embedding</a>
+                <div class="menu-item">
+                    <a href="how2work_with_embeddings.html" class="submenu-trigger">How to Work with Embeddings</a>
+                    <div class="submenu">
+                        <a href="how2create_embeddings.html">How to Create Vector Embeddings</a>
+                        <a href="how_embedding_works.html">How Embeddings Work in RAG</a>
+                        <a href="how2choose_embeddingModel.html">How to Choose Embedding Models</a>
+                    </div>
+                </div>
+                <a href="https://www.linkedin.com/in/kumar-np" target="_blank">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container main-content">
+        <h1>What Types of Objects Can Be Embedded and How</h1>
+		
+		<!-- Begin Horizontal Slim Menu -->
+        <div class="horizontal-menu">
+            <ul>
+                <li>
+                    <a href="#text-objects">Text Objects</a>
+                    <div class="submenu">
+                        <a href="#tf-idf">TF-IDF (Frequency-Based Embedding) </a>
+                        <a href="#co-occurrence-matrix">Co-occurrence Matrix (Frequency-Based Embedding)</a>
+                        <a href="#skip-gram">Skip-gram-Word2Vec (Prediction-based embedding)</a>
+                        <a href="#cbow">CBOW-Word2Vec (Prediction-based embedding)</a>
+                        <a href="#fast-text">FastText (Prediction-based embedding)</a>
+                        <a href="#glo-ve">GloVe (Prediction-based embedding)</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#images">Images</a>
+                </li>
+                <li>
+                    <a href="#audio">Audio</a>
+                </li>
+                <li>
+                    <a href="#graph-data">Graphs</a>
+                </li>
+                <li>
+                    <a href="#time-series">Time Series Data</a>
+                    <div class="submenu">
+                        <a href="#univariate-ts">Univariate Time Series</a>
+						<a href="#multivariate-ts">Multivariate Time Series </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- End of Horizontal Slim Menu -->
+
+        <div class="content-wrapper">
+            <div class="text-content">
+				<div class="section" id="text-objects">
+                <h2>Text Objects</h2>
+				<p>Word embeddings, sentence embeddings, and document embeddings are most common type of embedding techniques in natural language processing (NLP) for representing text as numerical vectors.</p>
+				<p>&nbsp</p>
+               
+                <p>Word embeddings capture the semantic relationships between words, such as synonyms and antonyms, and their contextual usage. This makes them valuable for tasks like language translation, word similarity, synonym generation, sentiment analysis, and enhancing search relevance.</p>
+				<p>&nbsp</p>
+				
+                <p>Sentence embeddings extend this concept to entire sentences, encapsulating their meaning and context. They are crucial for applications such as information retrieval, text categorization, and improving chatbot responses, as well as ensuring context retention in machine translation.</p>
+				<p>&nbsp</p>
+				
+				<p>Document embeddings, similar to sentence embeddings, represent entire documents, capturing their content and general meaning. These are used in recommendation systems, information retrieval, clustering, and document classification.</p>
+				<p>&nbsp</p>
+
+                <h2>Types of Text and Word Embedding Techniques</h2>
+				<h3>There are two main categories of word embedding</h3>
+
+				<table class="pros-cons">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>1. Frequency-Based Embedding</b></td>
+                            <td>Frequency-Based embedding generate vector representations of words by analysing their occurrence rates in a given corpus. These approaches use statistical measures to capture semantic information, relying on how often words appear together to encode their meanings and relationships.
+							<p>There are two types of Frequency-based embedding : </p>
+							<ul class="indented-list">
+								<li><a href="#tf-idf">Term Frequency-Inverse Document Frequency (TF-IDF)</a></li>
+								<li><a href="#co-occurrence-matrix">Co-occurrence Matrix</a></li>
+							</ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>2. Prediction-based embedding</b></td>
+                            <td>Prediction-based embedding are created using models that learn to predict a word based on its neighbouring words within sentences. This approach focuses on placing words with similar contexts near each other in the embedding space, resulting in more nuanced word vectors that effectively capture a range of linguistic relationships.
+							<p>There are three types of Prediction-based embedding : </p>
+							<ul class="indented-list">
+								<li><a href="#word-2-vec">Word2Vec (Skip-gram and Continuous Bag of Words)</a></li>
+								<li><a href="#fast-text">FastTex</a></li>
+								<li><a href="#glo-ve">GloVe (Global Vectors for Word Representation)</a></li>
+							</ul>
+							</td>	 
+                        </tr>
+                    </tbody>
+                </table>
+				</div>
+				<p>&nbsp</p>
+				<div class="section" id="tf-idf">
+					<h4>1.a. Term Frequency-Inverse Document Frequency (TF-IDF)</h4>
+					<p>Is a  basic embedding technique, where words are represented as vectors of their TF-IDF scores across multiple documents.</p>
+					<p>A TF-IDF vector is a sparse vector with one dimension per each unique word in the vocabulary. The value for an element in a vector is an occurrence count of the corresponding word in the sentence multiplied by a factor that is inversely proportional to the overall frequency of that word in the whole corpus. </p>
+					
+					<h5>Example Implementation of TF-IDF</h5>
+					<div class="section">
+						<div style="width: 100%; max-width: 950px; height: 300px; overflow: hidden; border: 1px solid #ccc; border-radius: 8px;">
+                        <iframe src="implementation_code/TF-IDF Embedding.html" width="100%" height="100%" style="border: none;"></iframe>
+						</div>
+					</div>
+					<h5>Example of TF-IDF Embedding Result</h5>
+					<div class="image-container">
+						<img src="images/TF-IDF_embeddings_result.png" alt="TF-IDF Embedding Result" class="content-image center" width="45%">
+						<div class="zoom-controls">
+							<span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+							<span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+						</div>
+					</div>
+				</div>
+
+                <div class="section" id="co-occurrence-matrix">
+					<h4>1.b Co-occurrence Matrix</h4>
+					<p>A co-occurrence matrix quantifies how often words appear together in a given corpus, representing each word as a vector based on its co-occurrence frequencies with other words. This technique captures the semantic relationships between words, as those that frequently appear in similar contexts are likely to be related.</p>
+					<p> In essence, the matrix is square, with rows and columns representing words and cells containing numerical values that reflect the frequency of word pairs appearing together. </p>
+					<h5>Example Implementation of Co-occurrence</h5>
+					<div class="section">
+						<div style="width: 100%; max-width: 950px; height: 300px; overflow: hidden; border: 1px solid #ccc; border-radius: 8px;">
+							<iframe src="implementation_code/Co-Occurrence-Matrix.html" width="100%" height="100%" style="border: none;"></iframe>
+						</div>
+					</div>
+					<h5>Example of Co-occurrence Matrix Embedding Result</h5>
+					<div class="image-container">
+						<img src="images/co-occurrence_matrix_result.png" alt="Co-occurrence Matrix Embedding Result" class="content-image center" width="45%">
+						<div class="zoom-controls">
+							<span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+							<span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+						</div>
+					</div>
+				</div>
+                
+				<h3>2 Prediction-Based Embedding</h3>
+                <p>Prediction-based methods use models to predict words based on their context, producing dense vectors that place words with similar contexts close together in the embedding space.</p>
+
+				<p>&nbsp</p>
+				<div class="section" id="word-2-vec">
+					<h4>2.a Word2Vec</h4>
+					<p>Word2Vec transformed natural language processing by converting words into dense vector representations that capture their semantic relationships. It generates numerical vectors for each word based on their contextual features, allowing words used in similar contexts to be closely positioned in vector space. This means that words with similar meanings or contexts will have similar vector representations.</p>
+					<p>There are two main variants of Word2Vec </p>
+					<ul class="indented-list">
+							<li><a href="#skip-gram">Skip-gram</a></li>
+							<li><a href="#cbow">Continuous Bag of Words(CBOW)</a></li>
+					</ul>
+			     </div>
+					<p>&nbsp</p>
+					<div class="section" id="skip-gram">
+						<h4>2.a.1 Skip-gram</h4>
+						<p>Skip-gram is a method for generating word embeddings that predicts the surrounding words based on a specific "target word." By assessing its accuracy in predicting these context words, skip-gram produces a numerical representation that effectively captures the target word's meaning and context.</p>
+						<p>This approach is particularly effective for less frequent words, as it emphasizes the relationship between each target word and its context, enabling a richer understanding of semantic connections.</p>
+					</div>
+					
+					<h5>Example Implementation of Skip-gram</h5>
+					<div class="section">
+						<div style="width: 100%; max-width: 950px; height: 300px; overflow: hidden; border: 1px solid #ccc; border-radius: 8px;">
+                        <iframe src="implementation_code/Skip-gram Embedding.html" width="100%" height="100%" style="border: none;"></iframe>
+						</div>
+					
+					<h5>Example of Skip-gram Result</h5>
+					<div class="image-container">
+						<img src="images/ski-gram-embeddings-result.png" alt="Skip-gram Embedding Result" class="content-image center" width="45%">
+						<div class="zoom-controls">
+							<span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+							<span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+						</div>
+					</div>
+					</div>
+					<p>&nbsp</p>
+					<div class="section" id="cbow">
+						<h4>2.b.1 Continuous Bag of Words (CBOW) </h4>
+						<p>The Continuous Bag of Words (CBOW) model aims to predict a target word based on its surrounding context words in a sentence. This approach differs from the skip-gram model, which predicts context words given a specific target word. CBOW generally performs better with common words, as it averages over the entire context, leading to faster training.</p>							
+					<h5>Example Implementation of Continuous Bag of Words</h5>
+					<div class="section">
+						<div style="width: 100%; max-width: 950px; height: 300px; overflow: hidden; border: 1px solid #ccc; border-radius: 8px;">
+                        <iframe src="implementation_code/CBOW.html" width="100%" height="100%" style="border: none;"></iframe>
+						</div>
+					</div>
+					<h5>Example of Continuous Bag of Words</h5>
+					<div class="image-container">
+						<img src="images/cbow_embeddings_result.png" alt="CBOW Result" class="content-image center" width="45%">
+						<div class="zoom-controls">
+							<span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+							<span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+						</div>
+					</div>
+				 </div>
+
+                <div class="section" id="fast-text">
+					<h4>2.2 FastText</h4>
+					<p>FastText embedding utilizes sub-word embeddings, which means it decomposes words into smaller components known as character n-grams, rather than treating them as single entities. This approach allows FastText to effectively capture the semantic meanings of morphologically related words. Additionally, because of its use of sub-word embeddings, FastText can manage Out-of-Vocabulary (OOV) words—those not included in the training data. By breaking down these words into sub-word units, FastText can generate embeddings even for terms absent from its initial vocabulary. </p>
+					<h5>Example Implementation of FastText</h5>
+					<div class="section">
+						<div style="width: 100%; max-width: 950px; height: 300px; overflow: hidden; border: 1px solid #ccc; border-radius: 8px;">
+							<iframe src="implementation_code/FastText-Embedding.html" width="100%" height="100%" style="border: none;"></iframe>
+						</div>
+					</div>
+					<h5>Example of FastText Embedding Result</h5>
+					<div class="image-container">
+						<img src="images/fasttext_embeddings_result.png" alt="FastText Embedding Result" class="content-image center" width="45%">
+						<div class="zoom-controls">
+							<span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+							<span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+						</div>
+					</div>
+				</div>
+				
+				 <div class="section" id="glo-ve">
+					<h4>2.3 GloVe (Global Vectors for Word Representation)</h4>
+					<p>GloVe embeddings are a type of word representation that capture the relationship between words by encoding the ratio of their co-occurrence probabilities as vector differences. The GloVe model learns these embeddings by analysing how often words appear together in a large text corpus. Unlike word2vec, which is a predictive deep learning model, GloVe operates as a count-based model.</p>
+					<p> It utilizes matrix factorization techniques applied to a word-context co-occurrence matrix. This matrix is constructed by counting how frequently each "context" word appears alongside a "target" word. GloVe then employs least squares regression to factorize this matrix, resulting in a lower-dimensional representation of the word vectors.</p>
+					<h5>Example of GloVe Code</h5>
+					<div class="section">
+						<div style="width: 100%; max-width: 950px; height: 300px; overflow: hidden; border: 1px solid #ccc; border-radius: 8px;">
+							<iframe src="implementation_code/GloVe.html" width="100%" height="100%" style="border: none;"></iframe>
+						</div>
+					</div>
+					<h5>Example of FastText Embedding Result</h5>
+					<div class="image-container">
+						<img src="images/glove-embeddings_result.png" alt="GloVe Embedding Result" class="content-image center" width="45%">
+						<div class="zoom-controls">
+							<span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+							<span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+						</div>
+					</div>
+				</div>
+				
+              </div>  
+				
+				<div>
+                <h2>Pros and Cons of Embedding Techniques</h2>
+                <table class="pros-cons">
+                    <thead>
+                        <tr>
+                            <th>Technique</th>
+                            <th>Pros</th>
+                            <th>Cons</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>TF-IDF</b></td>
+                            <td>
+                                <ul>
+                                    <li><b>Simplicity</b>: Easy to compute and interpret, ideal for keyword-based tasks.</li>
+                                    <li><b>Efficiency</b>: Low computational cost for large corpora.</li>
+                                    <li><b>Effective for Retrieval</b>: Highlights important words for search and classification.</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li><b>Limited Semantics</b>: Ignores word context and relationships.</li>
+                                    <li><b>Sparse Vectors</b>: High-dimensional vectors increase storage needs.</li>
+                                    <li><b>Scalability Issues</b>: Less effective for very large vocabularies.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Co-occurrence Matrix</b></td>
+                            <td>
+                                <ul>
+                                    <li><b>Semantic Relationships</b>: Captures word associations effectively.</li>
+                                    <li><b>Intuitive</b>: Directly reflects word co-occurrence patterns.</li>
+                                    <li><b>Flexible</b>: Adjustable for different context windows.</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li><b>High Dimensionality</b>: Large matrices for big vocabularies.</li>
+                                    <li><b>Noise Sensitivity</b>: May capture irrelevant co-occurrences.</li>
+                                    <li><b>Computational Cost</b>: Matrix construction can be resource-intensive.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Word2Vec (Skip-gram & CBOW)</b></td>
+                            <td>
+                                <ul>
+                                    <li><b>Rich Semantics</b>: Captures nuanced word relationships.</li>
+                                    <li><b>Dense Vectors</b>: Compact and efficient for downstream tasks.</li>
+                                    <li><b>Versatile</b>: Effective for various NLP applications.</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li><b>Training Cost</b>: Requires significant computational resources.</li>
+                                    <li><b>OOV Issues</b>: Struggles with out-of-vocabulary words.</li>
+                                    <li><b>Context Window</b>: Limited by fixed context size.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>FastText</b></td>
+                            <td>
+                                <ul>
+                                    <li><b>Sub-word Handling</b>: Manages OOV words effectively.</li>
+                                    <li><b>Morphological Insight</b>: Captures relationships in related words.</li>
+                                    <li><b>Robust</b>: Performs well in morphologically rich languages.</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li><b>Complexity</b>: More complex than Word2Vec due to sub-word processing.</li>
+                                    <li><b>Resource Intensive</b>: Higher memory and compute requirements.</li>
+                                    <li><b>Overfitting Risk</b>: May overfit on noisy sub-word data.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>GloVe</b></td>
+                            <td>
+                                <ul>
+                                    <li><b>Balanced Approach</b>: Combines count-based and predictive strengths.</li>
+                                    <li><b>Global Context</b>: Captures corpus-wide co-occurrence patterns.</li>
+                                    <li><b>Efficient</b>: Matrix factorization reduces computational load.</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li><b>Training Complexity</b>: Requires large corpora for optimal performance.</li>
+                                    <li><b>OOV Limitations</b>: Less effective for unseen words.</li>
+                                    <li><b>Memory Usage</b>: Large co-occurrence matrix storage needs.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+			</div>
+        </div>
+	<!-- Images -->
+	 <div class="section" id="images">
+		  <h2>Images</h2>
+		  <p>Image embeddings are representations that capture various aspects of visual items, such as video frames and images. They classify image features, enabling applications like content-based recommendation systems, object recognition, and image search. The process of image retrieval relies on two key components: image embeddings and vector search. To create these embeddings, techniques such as Convolutional Neural Networks (CNNs) or pre-trained models like ResNet and VGG are commonly used.</p>
+			<h5>Example Implementation of Image Embeddings</p>
+				<div class="section">
+					<div style="width: 100%; max-width: 950px; height: 300px; overflow: hidden; border: 1px solid #ccc; border-radius: 8px;">
+						<iframe src="implementation_code/Image Embeddings.html" width="100%" height="100%" style="border: none;"></iframe>
+					</div>
+					</div>
+					<h5>Example of Image Embedding Result</h5>
+					<div class="image-container">
+						<img src="images/image-embeddings_results.png" alt="Image Embedding Result" class="content-image center" width="45%">
+						<div class="zoom-controls">
+							<span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+							<span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+						</div>
+					</div>
+		</div>
+		<!-- Audio -->
+		 <div class="section" id="audio">
+		  <h2>Audio</h2>
+		  <p>Audio embeddings represent various features of audio signals—such as rhythm, tone, and pitch—in a numerical vector format. These embeddings are crucial for applications like emotion detection, voice recognition, and music recommendations based on listening history. They also play a key role in developing smart assistants that can understand voice commands. Techniques like Recurrent Neural Networks (RNNs) and spectrogram embeddings are used to create these numerical representations, allowing systems to interpret audio more effectively.</p>
+				<div class="section">
+					<div style="width: 100%; max-width: 950px; height: 300px; overflow: hidden; border: 1px solid #ccc; border-radius: 8px;">
+						<iframe src="implementation_code/Audio Embeddings.html" width="100%" height="100%" style="border: none;"></iframe>
+					</div>
+					</div>
+					<h5>Example of Image Embedding Result</h5>
+					<div class="image-container">
+						<img src="images/audio-embeddings_result.png" alt="Audio Embedding Result" class="content-image center" width="45%">
+						<div class="zoom-controls">
+							<span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+							<span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+						</div>
+					</div>
+		</div>
+		<!-- Graph Data -->
+		 <div class="section" id="graph-data">
+		  <h2>Graphs</h2>
+		  <p>Graph embeddings are techniques that map the nodes and edges of a graph into a continuous vector space, facilitating the representation of complex relationships and structures. This transformation supports various machine learning tasks, including node classification, community detection, and link prediction. Nodes in a graph represent entities, such as people, products, or web pages, while edges indicate the connections between these entities. By employing methods like graph convolutional networks and node embeddings, graph embeddings effectively capture the relational and structural information of graphs, making it easier to analyse and leverage the underlying data.</p>
+				<div class="section">
+					<div style="width: 100%; max-width: 950px; height: 300px; overflow: hidden; border: 1px solid #ccc; border-radius: 8px;">
+						<iframe src="implementation_code/Graph Data Embedding.html" width="100%" height="100%" style="border: none;"></iframe>
+					</div>
+					</div>
+					<h5>Example of Graphs Embedding Result</h5>
+					<div class="image-container">
+						<img src="images/graph-embeddings_result.png" alt="Graphs Embedding Result" class="content-image center" width="45%">
+						<div class="zoom-controls">
+							<span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+							<span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+						</div>
+					</div>
+		</div>
+		<!-- Time-Series Data Embeddings -->
+		<div class="section" id="time-series">
+		<h2>Time Series data</h2>
+			<p>Time series data captures temporal patterns in sequential observations and is widely utilized in various fields such as sensor monitoring, finance, and Internet of Things (IoT) applications. Key use cases include identifying patterns, detecting anomalies, and forecasting or classifying trends.</p>
+			<p>There are two main types of time series data: </p>
+			<ul class="indented-list">
+				<li><a href="#univariate-ts">Univariate Time Series</a></li>
+				<li><a href="#multivariate-ts">Multivariate Time Series</a></li>
+			</ul>
+		     </div>
+				<p>&nbsp</p>
+				<div class="section" id="univariate-ts">
+					<h4>Univariate Time Series</h4>
+					<p>This type involves tracking a single time-dependent variable over successive time intervals. For instance, consider the daily sales figures of a retail store. Each day, only the sales amount is recorded, creating a series that reflects how sales change over time.</p>
+				</div>
+					
+					<h5>Example Implementation of Univariate Time Series</h5>
+					<div class="section">
+						<div style="width: 100%; max-width: 950px; height: 300px; overflow: hidden; border: 1px solid #ccc; border-radius: 8px;">
+                        <iframe src="implementation_code/Univariate Data Embedding.html" width="100%" height="100%" style="border: none;"></iframe>
+						</div>
+					
+					<h5>Example of Univariate Time Series Result</h5>
+					<div class="image-container">
+						<img src="images/univariate- time-series-embedding_result.png" alt="Univariate Time-Series Result" class="content-image center" width="45%">
+						<div class="zoom-controls">
+							<span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+							<span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+						</div>
+					</div>
+					</div>
+					<p>&nbsp</p>
+					<div class="section" id="multivariate-ts">
+						<h4>Multivariate Time Series</h4>
+						<p>In contrast, this type includes multiple time-dependent variables observed simultaneously. For example, a weather station might record not just temperature but also humidity, wind speed, and atmospheric pressure over the same period. This provides a more comprehensive view of how various factors interact over time. Univariate time series data focuses on a single metric, multivariate time series data examines the relationships between multiple metrics over the same time frame.</p>							
+					<h5>Example Implementation of Multivariate Time Series</h5>
+					<div class="section">
+						<div style="width: 100%; max-width: 950px; height: 300px; overflow: hidden; border: 1px solid #ccc; border-radius: 8px;">
+                        <iframe src="implementation_code/Multivariate Data Embedding.html" width="100%" height="100%" style="border: none;"></iframe>
+						</div>
+					</div>
+					<h5>Example of Multivariate Time Series Result</h5>
+					<div class="image-container">
+						<img src="images/multivariate-time-series-embedding_result.png" alt="Multivariate Time-Series Result" class="content-image center" width="45%">
+						<div class="zoom-controls">
+							<span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+							<span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+						</div>
+					</div>
+				 </div>
+
+
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="vector_types.html"><span>◁</span> Previous</a>
+            <a href="whyembedding.html">Next <span>▷</span></a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Linkedin: <a href="https://www.linkedin.com/in/kumar-np" target="_blank" class="footer-link">Kumar N.P <img src="images/npk-2.PNG" alt="gaja" title="gaja" height="22" width="22"></a></p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top">↑</button>
+
+    <!-- Single JavaScript reference -->
+    <script src="scripts/script_embedding.js"></script>
+</body>
+</html>

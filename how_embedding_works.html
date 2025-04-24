@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Embedding Matters in RAG</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <h1>Mastering Embedding for RAG</h1>
+            <button class="menu-btn" aria-label="Toggle Menu">☰</button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <div class="menu-item">
+                    <a href="what_is_embedding.html" class="submenu-trigger">What is Embedding</a>
+                    <div class="submenu">
+                        <a href="vector_types.html">Types of Vectors</a>
+                        <a href="embeddable_objects.html">Embeddable Objects</a>
+                    </div>
+                </div>
+                <a href="whyembedding.html">Why Embedding</a>
+                <div class="menu-item">
+                    <a href="how2work_with_embeddings.html" class="submenu-trigger">How to Work with Embeddings</a>
+                    <div class="submenu">
+                        <a href="how2create_embeddings.html">How to Create Vector Embeddings</a>
+                        <a href="how_embedding_works.html">How Embeddings Works in RAG</a>
+                        <a href="how2choose_embeddingModel.html">How to Choose Embedding Models</a>
+                    </div>
+                </div>
+                <a href="https://www.linkedin.com/in/kumar-np" target="_blank">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container main-content">
+        <h1>How LLM Embeddings Work in Retrieval Augmented Generation</h1>
+        <div class="content-wrapper">
+            <div class="step">
+                <h2>User Submits Query to LLM</h2>
+                <p>The interaction begins when the user asks a question. For instance, they might type, "What are effective strategies for managing remote teams?" Before sending this directly to the LLM, the application adds context and refines the prompt to enhance its clarity and focus.</p>
+            </div>
+            <div class="step">
+                <h2>RAG Application Generates Query Vector and Performs Similarity Search</h2>
+                <p>Next, the RAG (Retrieval-Augmented Generation) application takes the refined prompt and converts it into a numerical representation known as an embedding. This involves using an embedding model that transforms the user's question into a vector. The application then submits this query vector to a vector database.</p>
+                <p>The vector database conducts a semantic search by comparing the query vector to existing embedding vectors of documents indexed in the database. It utilizes a distance metric, such as cosine similarity or dot product, to find documents that are most similar to the query. This method, known as approximate nearest neighbour search, ensures that the application retrieves relevant information effectively, outperforming traditional keyword searches.</p>
+            </div>
+            <div class="step">
+                <h2>RAG Application Augments the Prompt Using Semantic Search Results</h2>
+                <p>With the relevant documents retrieved, the RAG application synthesizes this information to create an augmented prompt. This new prompt incorporates insights from the search results along with the original user query. The enhanced prompt is then structured in a way that guides the LLM to generate a more comprehensive response.</p>
+            </div>
+            <div class="step">
+                <h2>LLM Generates a Response Based on the Augmented Prompt</h2>
+                <p>Finally, the LLM processes the augmented prompt and generates a response. Because the prompt now includes context from the relevant documents, the LLM can provide detailed information about effective remote team management strategies, even if its training data did not specifically cover the latest best practices. The user receives a tailored and informative answer that addresses their original query effectively.</p>
+            </div>
+        </div>
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="how2work_with_embeddings.html"><span>◁</span> Previous</a>
+            <a href="how2choose_embeddingModle.html">Next <span>▷</span></a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Linkedin: <a href="https://www.linkedin.com/in/kumar-np" target="_blank" class="footer-link">Kumar N.P <img src="images/npk-2.PNG" alt="gaja" title="gaja" height="22" width="22"></a></p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top">↑</button>
+
+    <!-- Single JavaScript reference -->
+    <script src="scripts/script_embedding.js"></script>
+</body>
+</html>

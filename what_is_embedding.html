@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Embedding for RAG</title>
+    <link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <h1>Mastering Embedding for RAG</h1>
+            <button class="menu-btn" aria-label="Toggle Menu">☰</button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <!-- <a href="what_is_embedding.html">What is Embedding</a> -->
+                <div class="menu-item">
+                    <a href="what_is_embedding.html" class="submenu-trigger">What is Embedding</a>
+                    <div class="submenu">
+                        <a href="vector_types.html">Types of Vectors</a>
+                        <a href="embeddable_objects.html">Embeddable Objects</a>
+                    </div>
+                </div>
+                <a href="whyembedding.html">Why Embedding</a>
+                <div class="menu-item">
+                    <a href="how2work_with_embeddings.html" class="submenu-trigger">How to Work with Embeddings</a>
+                    <div class="submenu">
+                        <a href="how2create_embeddings.html">How to Create Vector Embeddings</a>
+                        <a href="how_embedding_works.html">How Embeddings Works in RAG</a>
+                        <a href="how2choose_embeddingModel.html">How to Choose Embedding Models</a>
+                    </div>
+                </div>
+                <a href="https://www.linkedin.com/in/kumar-np" target="_blank">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container main-content">
+        <h1>What is Embedding</h1>
+		<p> Embeddings are a method of representing data as arrays of numbers, known as vectors. They capture the semantic meaning of data, such as text, by mapping words into a high-dimensional space and then compressing them into dense vectors in a lower-dimensional space. This process ensures that semantically similar words are positioned closer together in the embedding space, simplifying the representation of real-world data while preserving both semantic and syntactic relationships.
+		<br>In the context to LLM (Large Language Models), embeddings are stored as vectors in an index within a vector database.</br> </p>
+
+        <div class="intro-wrapper">
+            <div class="intro-text">
+				<p>&nbsp</p>
+				<h2>Understanding Vector Indexing in Embeddings </h2>
+            </div>
+
+			
+        </div>
+        <div class="content-wrapper">
+		
+            <div class="text-content">
+                <h3>1. Understanding Vector Order</h3>
+                <p>The index refers to the sequence in which vectors are stored. This order is crucial because it influences how vectors relate to one another.</p>
+                <br> <!-- new line -->
+				
+				<h3>2. Key Components of a Vector:</h3>			
+					<p><b>Orgin</b> : This is the starting point of the vector.</p>
+					<p><b>Direction</b>: This indicates the path the vector takes in the embedding space.</p>
+				    <p><b>Magnitude</b>: his is the length of the vector, which represents its significance or strength.</p>
+				<br> <!-- new line -->
+                                
+				<h3>3. Relationship Between Vectors</h3>
+                <p>The origin, direction, and magnitude together define how vectors interact with each other. These relationships are essential for the retrieval mechanism, which compares vectors to assess their similarity.</p>
+				<br> <!-- new line -->
+                                
+				<h3>4. Vector Proximity:</h3>
+                <p>Consider an embedded vector representing the fruit "Apple." This vector might be stored close to the vector for "Banana" due to both being common fruits. Their proximity in the index indicates their relatedness, making it easier for the system to retrieve information about similar items.</p>
+				<br> <!-- new line -->
+                				
+                <h3>5. Utilizing the Index for Retrieval</h3>
+                <p>When comparing vectors, the retrieval mechanism uses their positions in the index to determine how closely related they are. The closer two vectors are, the more similar their meanings or contexts are likely to be, facilitating effective information retrieval. When the retrieval algorithm queries the vector database for “Apple” it might also return information of other fruits  because of its proximity in the vector database.</p>
+            </div>
+			 <div class="image-container">
+			    <br></br>
+				<br></br>
+				<br></br>
+                <img src="images/vector.png" alt="illustration  of high-dimensional vector in 2D space" class="content-image" width=85%>
+                <div class="zoom-controls">
+                    <span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+                    <span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+                </div>
+            </div>
+        </div>
+		
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="index.html"><span>◁</span> Previous</a>
+            <a href="vector_types.html">Next <span>▷</span></a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Linkedin: <a href="https://www.linkedin.com/in/kumar-np" target="_blank" class="footer-link">Kumar N.P <img src="images/npk-2.PNG" alt="gaja" title="gaja" height="22" width="22"></a></p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top">↑</button>
+
+    <!-- Single java script reference -->
+    <script src="scripts/script_embedding.js"></script>
+</body>
+</html>

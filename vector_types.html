@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Embedding for RAG</title>
+    <link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <h1>Mastering Embedding for RAG</h1>
+            <button class="menu-btn" aria-label="Toggle Menu">☰</button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <!-- <a href="what_is_embedding.html">What is Embedding</a> -->
+                <div class="menu-item">
+                    <a href="what_is_embedding.html" class="submenu-trigger">What is Embedding</a>
+                    <div class="submenu">
+                        <a href="vector_types.html">Types of Vectors</a>
+                        <a href="embeddable_objects.html">Embeddable Objects</a>
+                    </div>
+                </div>
+                <a href="whyembedding.html">Why Embedding</a>
+                <div class="menu-item">
+                    <a href="#" class="submenu-trigger">How to Choose Embedding Models</a>
+                    <div class="submenu">
+                        <a href="how2create_embeddings.html">How to Create Vector Embeddings</a>
+                        <a href="how_embedding_works.html">How Embeddings Works in RAG</a>
+                        <a href="how2choose_embeddingModel.html">Choose Right Embedding Model</a>
+                    </div>
+                </div>
+                <a href="https://www.linkedin.com/in/kumar-np" target="_blank">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container main-content">
+        <h1>Different Types of Vectors</h1>
+        <p>Any data, including human-readable text, can be represented as vectors to enable machine understanding. To process text, it must be converted into a machine-readable format, typically using dense or sparse vectors. This section explores these vector types, their applications in text processing, and their significance in Retrieval-Augmented Generation (RAG) systems.</p>
+
+        <div class="content-wrapper">
+            <div class="text-content">
+                <h2>1. Dense Vectors</h2>
+                <p>Dense vectors are used when the data has no inherent sparsity. In data contexts, it describes representations that are closely packed, where most of the elements contain meaningful or non-zero values, indicating an informative dataset. Dense vectors are used for comparing the semantics or meaning of the text.</p>
+
+                <h3>1.1 Dense Vector Embedding Example Code</h3>
+                <div class="section">
+                    <div style="width: 100%; max-width: 950px; height: 300px; overflow: hidden; border: 1px solid #ccc; border-radius: 8px;">
+                        <iframe src="implementation_code/Dense-embedding.html" width="100%" height="100%" style="border: none;"></iframe>
+                    </div>
+                </div>
+
+                <h3>1.2 Dense Vector Embedding Result</h3>
+                <div class="image-container">
+                    <img src="images/dense_vector_embeddings_result.png" alt="Dense Vector Embedding Result" class="content-image center" width="45%">
+                    <div class="zoom-controls">
+                        <span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+                        <span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+                    </div>
+                </div>
+
+                <h2>2. Sparse Vectors</h2>
+                <p>SSparse vectors are used when the data being represented is inherently sparse. In data contexts, it refers to a situation where data is scattered, with most elements  being zero or missing, resulting in a representation that contains a lot of empty or non-informative values. Sparse vectors are used for comparing the words and their meanings in text and are good at capturing the semantics of these texts. </p>
+				<p>&nbsp</p>
+				<p>For example, given below two sentences, sparse vectors would generate a perfect match (or near-perfect match), because they both contain exact same words or closely match even though they both have very different meaning.</p>
+				<p><b>
+                   <span class="highlight-yellow">The kangaroo sprinted from the</span> 
+                   <span class="highlight-gray">bush</span> 
+                   <span class="highlight-green">in dawn</span> 
+                   <span class="highlight-blue">towards the</span> 
+                   <span class="highlight-purple">highway</span>
+				   <span class="highlight-red">.</span>					
+                </b></p>
+				<p><b>
+                   <span class="highlight-green">In dawn</span> 
+                   <span class="highlight-yellow">the kangaroo sprinted from the</span> 
+                   <span class="highlight-purple">highway</span>
+                   <span class="highlight-blue">towards the</span> 
+                   <span class="highlight-gray">bush</span> 
+				   <span class="highlight-red">.</span>					
+                </b></p>
+				<p>&nbsp</p>
+
+                <h3>2.1 Sparse Vector Embedding Example Code</h3>
+                <div class="section">
+                    <div style="width: 100%; max-width: 950px; height: 300px; overflow: hidden; border: 1px solid #ccc; border-radius: 8px;">
+                        <iframe src="implementation_code/Sparse vectors-embedding.html" width="100%" height="100%" style="border: none;"></iframe>
+                    </div>
+                </div>
+
+                <h3>2.2 Sparse Vector Embedding Result</h3>
+                <div class="image-container">
+                    <img src="images/sparse-vector-embeddings_result.png" alt="Sparse Vector Embedding Result" class="content-image center" width="45%">
+                    <div class="zoom-controls">
+                        <span class="zoom-icon zoom-in"><img src="images/zoom-in_24.png" alt="Zoom In"></span>
+                        <span class="zoom-icon zoom-out"><img src="images/zoom-out_24.png" alt="Zoom Out"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="what_is_embedding.html"><span>◁</span> Previous</a>
+            <a href="embeddable_objects.html">Next <span>▷</span></a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Linkedin: <a href="https://www.linkedin.com/in/kumar-np" target="_blank" class="footer-link">Kumar N.P <img src="images/npk-2.PNG" alt="gaja" title="gaja" height="22" width="22"></a></p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top">↑</button>
+
+    <!-- Single JavaScript reference -->
+    <script src="scripts/script_embedding.js"></script>
+</body>
+</html>
