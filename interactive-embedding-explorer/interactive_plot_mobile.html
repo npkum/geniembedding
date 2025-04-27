@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Sentence Plot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Important for mobile scaling -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap; /* Allows wrapping on small screens */
+      gap: 20px;
+    }
+    .left, .right {
+      flex: 1 1 100%; /* Full width on small screens */
+      min-width: 300px;
+    }
+    iframe {
+      width: 100%;
+      height: 500px; 
+      border: none;
+    }
+    select, button {
+      font-size: 1em;
+      margin-top: 10px;
+      padding: 5px;
+    }
+    .sentence-table-wrapper {
+      overflow-x: auto; /* Enable horizontal scroll if needed */
+    }
+    .sentence-table {
+      border-collapse: collapse;
+      width: 100%;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      min-width: 300px;
+    }
+    .sentence-table th, .sentence-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    .sentence-table th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+    .sentence-table td {
+      word-wrap: break-word;
+    }
+    .sentence-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .sentence-table tr:hover {
+      background-color: #f5f5f5;
+    }
+    .index-column {
+      width: 40px;
+      text-align: center;
+    }
+    /* Optional: Media query for tablets/mobiles */
+    @media (max-width: 768px) {
+      iframe {
+        height: 300px;
+      }
+    }
+    @media (max-width: 480px) {
+      iframe {
+        height: 250px;
+      }
+      .sentence-table th, .sentence-table td {
+        font-size: 12px;
+        padding: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Semantic Sentence Explorer</h1>
+  <label for="querySelect">Choose a query:</label>
+  <select id="querySelect">
+    <option value="plot_technology.html">technology and productivity</option>
+    <option value="plot_space.html">space and future</option>
+    <option value="plot_environment.html">environment and climate change</option>
+    <option value="plot_investement.html">investment and risk</option>
+  </select>
+  <button onclick="loadPlot()">Search</button>
+
+  <div class="container">
+    <div class="left">
+      <iframe id="plotFrame" src="plot_technology.html"></iframe>
+    </div>
+    <div class="right">
+      <h3>Original Sentences</h3>
+      <div class="sentence-table-wrapper">
+        <div id="sentenceTable">
+          <!-- Sentence table will be generated here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sentences = [
+      "Investment banks are adopting AI-driven tools for risk management.",
+      "Electric vehicles are becoming increasingly popular due to environmental concerns.",
+      "Robo-advisors are becoming a preferred choice for managing personal investments.",
+      "Remote work has transformed how companies operate across the globe.",
+      "The stock market reacted positively to the latest economic reports.",
+      "Vaccinations have significantly reduced the spread of infectious diseases.",
+      "Smartphones have become essential tools for communication and productivity.",
+      "Global warming poses serious threats to the environment and human life.",
+      "Green bonds are gaining popularity among environmentally conscious investors.",
+      "Space exploration is unlocking new possibilities for the future of humanity."
+    ];
+
+    function loadPlot() {
+      const selected = document.getElementById("querySelect").value;
+      document.getElementById("plotFrame").src = selected;
+    }
+
+    function generateSentenceTable() {
+      let tableHTML = '<table class="sentence-table">';
+      tableHTML += `
+        <thead>
+          <tr>
+            <th class="index-column">ID</th>
+            <th>Original Sentence</th>
+          </tr>
+        </thead>
+        <tbody>
+      `;
+      
+      sentences.forEach((sentence, index) => {
+        tableHTML += `
+          <tr>
+            <td>${index}</td>
+            <td>${sentence}</td>
+          </tr>
+        `;
+      });
+
+      tableHTML += '</tbody></table>';
+      document.getElementById('sentenceTable').innerHTML = tableHTML;
+    }
+
+    // Generate table on page load
+    window.onload = generateSentenceTable;
+  </script>
+
+</body>
+</html>

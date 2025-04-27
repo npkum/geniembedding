@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Sentence Plot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    .container {
+      display: flex;
+      gap: 30px;
+    }
+    .left {
+      flex: 1;
+    }
+    .right {
+      flex: 0.6; /* 1 */
+      max-height: 600px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    iframe {
+      width: 105%; /* Increased iframe width */
+      height: 600px;
+      border: none;
+    }
+    select, button {
+      font-size: 1em;
+      margin-top: 10px;
+      padding: 5px;
+    }
+    .sentence-table {
+      border-collapse: collapse;
+      width:500px; /* Configurable table width */
+      max-width: 100%;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+    .sentence-table th, .sentence-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    .sentence-table th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+    .sentence-table td {
+      word-wrap: break-word; /* Wrap long sentences */
+      max-width: 400px; /* Configurable max column width for wrapping */
+    }
+    .sentence-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .sentence-table tr:hover {
+      background-color: #f5f5f5;
+    }
+    .index-column {
+      width: 35px; /* Configurable index column width */
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Semantic Sentence Explorer</h1>
+  <label for="querySelect">Choose a query:</label>
+  <select id="querySelect">
+    <option value="plot_technology.html">Technology and Productivity</option>
+    <option value="plot_space.html">Space and Future</option>
+    <option value="plot_environment.html">Environment and Climate Change</option>
+    <option value="plot_investement.html">Investment and Risk</option>
+  </select>
+  <button onclick="loadPlot()">Search</button>
+
+  <div class="container">
+    <div class="left">
+      <iframe id="plotFrame" src="plot_technology.html"></iframe>
+    </div>
+    <div class="right">
+      <h3>Original Sentences</h3>
+      <div id="sentenceTable">
+        <!-- Sentence table will be generated here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sentences = [
+      "Investment banks are adopting AI-driven tools for risk management.",
+      "Electric vehicles are becoming increasingly popular due to environmental concerns.",
+      "Robo-advisors are becoming a preferred choice for managing personal investments.",
+      "Remote work has transformed how companies operate across the globe.",
+      "The stock market reacted positively to the latest economic reports.",
+      "Vaccinations have significantly reduced the spread of infectious diseases.",
+      "Smartphones have become essential tools for communication and productivity.",
+      "Global warming poses serious threats to the environment and human life.",
+      "Green bonds are gaining popularity among environmentally conscious investors.",
+      "Space exploration is unlocking new possibilities for the future of humanity."
+    ];
+
+    function loadPlot() {
+      const selected = document.getElementById("querySelect").value;
+      document.getElementById("plotFrame").src = selected;
+    }
+
+    function generateSentenceTable() {
+      let tableHTML = '<table class="sentence-table">';
+      tableHTML += `
+        <thead>
+          <tr>
+            <th class="index-column">ID</th>
+            <th>Original Sentence</th>
+          </tr>
+        </thead>
+        <tbody>
+      `;
+      
+      sentences.forEach((sentence, index) => {
+        tableHTML += `
+          <tr>
+            <td>${index}</td>
+            <td>${sentence}</td>
+          </tr>
+        `;
+      });
+
+      tableHTML += '</tbody></table>';
+      document.getElementById('sentenceTable').innerHTML = tableHTML;
+    }
+
+    // Generate table on page load
+    window.onload = generateSentenceTable;
+  </script>
+
+</body>
+</html>
